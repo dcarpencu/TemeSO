@@ -1,0 +1,3 @@
+/Users/carpencudavid/POLI/an3/SO/Fisiere (tema 3)/cmake-build-debug/CMakeFiles/Fisiere__tema_3_.dir
+/Users/carpencudavid/POLI/an3/SO/Fisiere (tema 3)/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/carpencudavid/POLI/an3/SO/Fisiere (tema 3)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
