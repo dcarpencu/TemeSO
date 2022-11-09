@@ -145,7 +145,7 @@ void drepturiAcces(char *FileName){
 // }
 
 int checkIfC(char *FileName){
-    printf("checkC");
+    //printf("checkC");
     if(strcmp(".c", strchr(FileName,'.')) == 0)
         return 1;
     else
@@ -175,7 +175,7 @@ int ifC = checkIfC(fileName);
 //char *fileName = read->d_name;
 
 if (ifC == 1){
-printf("ceva");
+//printf("ceva");
 performAction(argv[2], fileName);
 }
     }

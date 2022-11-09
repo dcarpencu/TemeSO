@@ -10,18 +10,18 @@
 void print_size(char* filename) {
     struct stat struct_stat;
     int stat_result = stat(filename, &struct_stat);
-    if (stat_result) {
+    if (stat_result == 0) {
         off_t size = struct_stat.st_size;
-        printf("%lld", size);
+        printf("\nsize: %llu\n", size);
     } else {
         perror("stat function nu merge :(");
     }
 }
 
-void print_uid(char *filename){
+void print_uid(char *filename) {
     struct stat struct_stat;
-    int stat_result = stat (filename,&struct_stat);
-    if(stat_result){
+    int stat_result = stat (filename, &struct_stat);
+    if(stat_result == 0){
         uid_t id = struct_stat.st_uid;
         printf("%lu\n",(unsigned long int) id);
     }else{
@@ -32,9 +32,9 @@ void print_uid(char *filename){
 void print_links(char *filename){
     struct stat struct_stat;
     int stat_result = stat(filename,&struct_stat);
-    if(stat_result){
-        nlink_t links =struct_stat.st_nlink;
-        printf("%hu\n", links);
+    if(stat_result == 0){
+        //int links =struct_stat.st_nlink;
+        printf("ceva");
     }else{
         perror("Error at printing the number of links");
     }
@@ -43,7 +43,7 @@ void print_links(char *filename){
 void print_rights(char *filename){
     struct stat struct_stat;
     int stat_result =stat(filename,&struct_stat);
-    if(stat_result){
+    if(stat_result == 0){
         printf("%s\n","Utilizator:");
         if(S_IRUSR & struct_stat.st_mode){
             printf("%s\n","Read - Da");
@@ -107,6 +107,7 @@ void action(char* option, char* filename) {
             print_uid(filename);
             break;
         case 'd':
+            printf("\n --- %s ---\n",filename);
             print_size(filename);
             break;
         case 'c':
@@ -152,15 +153,15 @@ int main(int argc, char** argv)
 
     if (dirname != NULL) {
         struct dirent *dir;
-        char* path_first = dirname;
-        char* path_modified;
+        //char path_first = dirname;
+        char path_modified[30];
         while ((dir = readdir(dirname)) != NULL) {
-            strcpy(path_modified, path_first);
-            strcat()
-            if (isCFile(dir->d_name)) {
-                printf("%s ", dir->d_name);
-                action(argv[2], dir->d_name);
-            }
+            sprintf(path_modified, "%s/", argv[1]);
+            strcat(path_modified, dir->d_name);
+            printf("Ceva nou");
+//            if (isCFile(dir->d_name)) {
+//                action(argv[2], path_modified);
+//            }
         }
     } else {
         perror("Huston, the directory has a problem!");
