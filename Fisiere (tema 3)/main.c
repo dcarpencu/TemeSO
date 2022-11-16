@@ -31,10 +31,10 @@ void print_uid(char *filename) {
 
 void print_links(char *filename){
     struct stat struct_stat;
-    int stat_result = stat(filename,&struct_stat);
+    int stat_result = stat(filename, &struct_stat);
     if(stat_result == 0){
-        //int links =struct_stat.st_nlink;
-        printf("ceva");
+        nlink_t links =struct_stat.st_nlink;
+        printf("%hu\n", links);
     }else{
         perror("Error at printing the number of links");
     }
@@ -99,23 +99,28 @@ void print_rights(char *filename){
 }
 
 void action(char* option, char* filename) {
-    switch(option[1]) {
-        case 'n':
-            printf("%s\n",filename);
-            break;
-        case 'u':
-            print_uid(filename);
-            break;
-        case 'd':
-            printf("\n --- %s ---\n",filename);
-            print_size(filename);
-            break;
-        case 'c':
-            print_links(filename);
-            break;
-        case 'a':
-            print_rights(filename);
-            break;
+    for(int i = 1; i <= strlen(option); i++) {
+        switch (option[i]) {
+            case 'n':
+                printf("%s\n", filename);
+                break;
+            case 'u':
+                print_uid(filename);
+                break;
+            case 'd':
+                printf("\n --- %s ---\n", filename);
+                print_size(filename);
+                break;
+            case 'c':
+                print_links(filename);
+                break;
+            case 'a':
+                print_rights(filename);
+                break;
+//            default:
+//                printf("INVALID INPUT");
+//                break;
+        }
     }
 
 //    if(strcmp(option,"-n")==0){
@@ -158,10 +163,10 @@ int main(int argc, char** argv)
         while ((dir = readdir(dirname)) != NULL) {
             sprintf(path_modified, "%s/", argv[1]);
             strcat(path_modified, dir->d_name);
-            printf("Ceva nou");
-//            if (isCFile(dir->d_name)) {
-//                action(argv[2], path_modified);
-//            }
+
+            if (isCFile(dir->d_name)) {
+                action(argv[2], path_modified);
+            }
         }
     } else {
         perror("Huston, the directory has a problem!");
