@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-void print_size(char* filename) {
+void print_size(char *filename) {
     struct stat struct_stat;
     int stat_result = stat(filename, &struct_stat);
     if (stat_result == 0) {
@@ -20,86 +20,86 @@ void print_size(char* filename) {
 
 void print_uid(char *filename) {
     struct stat struct_stat;
-    int stat_result = stat (filename, &struct_stat);
-    if(stat_result == 0){
+    int stat_result = stat(filename, &struct_stat);
+    if (stat_result == 0) {
         uid_t id = struct_stat.st_uid;
-        printf("%lu\n",(unsigned long int) id);
-    }else{
+        printf("%lu\n", (unsigned long int) id);
+    } else {
         perror("Error at uid printing!");
     }
 }
 
-void print_links(char *filename){
+void print_links(char *filename) {
     struct stat struct_stat;
     int stat_result = stat(filename, &struct_stat);
-    if(stat_result == 0){
-        nlink_t links =struct_stat.st_nlink;
+    if (stat_result == 0) {
+        nlink_t links = struct_stat.st_nlink;
         printf("%hu\n", links);
-    }else{
+    } else {
         perror("Error at printing the number of links");
     }
 }
 
-void print_rights(char *filename){
+void print_rights(char *filename) {
     struct stat struct_stat;
-    int stat_result =stat(filename,&struct_stat);
-    if(stat_result == 0){
-        printf("%s\n","Utilizator:");
-        if(S_IRUSR & struct_stat.st_mode){
-            printf("%s\n","Read - Da");
-        }else{
-            printf("%s\n","Read - Nu");
+    int stat_result = stat(filename, &struct_stat);
+    if (stat_result == 0) {
+        printf("%s\n", "Utilizator:");
+        if (S_IRUSR & struct_stat.st_mode) {
+            printf("%s\n", "Read - Da");
+        } else {
+            printf("%s\n", "Read - Nu");
         }
-        if(S_IWUSR & struct_stat.st_mode){
-            printf("%s\n","Write - Da");
-        }else{
-            printf("%s\n","Write - Nu");
+        if (S_IWUSR & struct_stat.st_mode) {
+            printf("%s\n", "Write - Da");
+        } else {
+            printf("%s\n", "Write - Nu");
         }
-        if(S_IXUSR & struct_stat.st_mode){
-            printf("%s\n","Execute - Da");
-        }else{
-            printf("%s\n","Execute - Nu");
+        if (S_IXUSR & struct_stat.st_mode) {
+            printf("%s\n", "Execute - Da");
+        } else {
+            printf("%s\n", "Execute - Nu");
         }
-        printf("%s\n","Grup:");
-        if(S_IRGRP & struct_stat.st_mode){
-            printf("%s\n","Read - Da");
-        }else{
-            printf("%s\n","Read - Nu");
+        printf("%s\n", "Grup:");
+        if (S_IRGRP & struct_stat.st_mode) {
+            printf("%s\n", "Read - Da");
+        } else {
+            printf("%s\n", "Read - Nu");
         }
-        if(S_IWGRP & struct_stat.st_mode){
-            printf("%s\n","Write - Da");
-        }else{
-            printf("%s\n","Write - Nu");
+        if (S_IWGRP & struct_stat.st_mode) {
+            printf("%s\n", "Write - Da");
+        } else {
+            printf("%s\n", "Write - Nu");
         }
-        if(S_IXGRP & struct_stat.st_mode){
-            printf("%s\n","Execute - Da");
-        }else{
-            printf("%s\n","Execute - Nu");
+        if (S_IXGRP & struct_stat.st_mode) {
+            printf("%s\n", "Execute - Da");
+        } else {
+            printf("%s\n", "Execute - Nu");
         }
-        printf("%s\n","Other:");
-        if(S_IROTH & struct_stat.st_mode){
-            printf("%s\n","Read - Da");
-        }else{
-            printf("%s\n","Read - Nu");
+        printf("%s\n", "Other:");
+        if (S_IROTH & struct_stat.st_mode) {
+            printf("%s\n", "Read - Da");
+        } else {
+            printf("%s\n", "Read - Nu");
         }
-        if(S_IWOTH & struct_stat.st_mode){
-            printf("%s\n","Write - Da");
-        }else{
-            printf("%s\n","Write - Nu");
+        if (S_IWOTH & struct_stat.st_mode) {
+            printf("%s\n", "Write - Da");
+        } else {
+            printf("%s\n", "Write - Nu");
         }
-        if(S_IXOTH & struct_stat.st_mode){
-            printf("%s\n","Execute - Da");
-        }else{
-            printf("%s\n","Execute - Nu");
+        if (S_IXOTH & struct_stat.st_mode) {
+            printf("%s\n", "Execute - Da");
+        } else {
+            printf("%s\n", "Execute - Nu");
         }
         printf("\n");
-    }else{
+    } else {
         perror("Error at printing file permissions!");
     }
 }
 
-void action(char* option, char* filename) {
-    for(int i = 1; i <= strlen(option); i++) {
+void action(char *option, char *filename) {
+    for (int i = 1; i <= strlen(option); i++) {
         switch (option[i]) {
             case 'n':
                 printf("%s\n", filename);
@@ -140,21 +140,20 @@ void action(char* option, char* filename) {
 //    }
 }
 
-int isCFile (char* fisier) {
+int isCFile(char *fisier) {
     if ((strcmp(strrchr(fisier, '.'), ".c")) == 0)
         return 1;
     else
         return 0;
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
     if (argc != 3) {
         perror("Not enough args");
         exit(-1);
     }
 
-    DIR* dirname = opendir(argv[1]); // se deschide directorul
+    DIR *dirname = opendir(argv[1]); // se deschide directorul
 
     if (dirname != NULL) {
         struct dirent *dir;
